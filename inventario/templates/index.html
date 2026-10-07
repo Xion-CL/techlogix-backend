@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}Inicio - TechLogix S.A.{% endblock %}
+{% block content %}
+<!-- Hero Section -->
+<section class="hero text-center" style="background: linear-gradient(135deg, #0d6efd, #6610f2); color: white; padding: 4rem 0;">
+    <div class="container">
+        <h1 class="display-3 fw-bold">💻 Bienvenido a TechLogix S.A.</h1>
+        <p class="lead">Distribuidora líder en tecnología. Modernizamos tu inventario con soluciones web.</p>
+        <div class="mt-4">
+            <a href="{% url 'catalogo' %}" class="btn btn-light btn-lg me-2">📦 Ver Catálogo</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg">🔐 Área Restringida</a>
+        </div>
+    </div>
+</section>
+
+<!-- Estadísticas -->
+<div class="container my-5">
+    <div class="row text-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <h3 class="text-primary">📦 Productos</h3>
+                <p class="display-4 fw-bold text-primary">{{ total_productos|intcomma }}</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <h3 class="text-success"> Categorías</h3>
+                <p class="display-4 fw-bold text-success">{{ total_categorias|intcomma }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Características -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-4 text-center mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="display-4">️</h2>
+                    <h4 class="card-title">Catálogo Completo</h4>
+                    <p class="card-text">Explora todos nuestros productos tecnológicos con imágenes y precios actualizados.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="display-4">🔒</h2>
+                    <h4 class="card-title">Gestión Segura</h4>
+                    <p class="card-text">Sistema de administración con control de acceso por roles y permisos.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="display-4">⚡</h2>
+                    <h4 class="card-title">Rápido y Eficiente</h4>
+                    <p class="card-text">Tecnología Django y PostgreSQL para un rendimiento óptimo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

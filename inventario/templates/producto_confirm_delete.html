@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Eliminar Producto{% endblock %}
+{% block content %}
+<div class="container my-4">
+    <div class="card shadow-sm col-md-6 mx-auto border-danger">
+        <div class="card-body text-center">
+            <h3 class="text-danger">⚠️ Confirmar Eliminación</h3>
+            <p>¿Estás seguro de eliminar el producto <strong>{{ producto.nombre }}</strong> (SKU: {{ producto.sku }})?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">🗑️ Sí, eliminar</button>
+                <a href="{% url 'admin_panel' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

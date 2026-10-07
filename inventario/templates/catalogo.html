@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}Catálogo - TechLogix{% endblock %}
+{% block content %}
+<div class="container my-4">
+    <h2 class="mb-4">📦 Catálogo Público de Productos</h2>
+
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-5">
+            <select name="categoria" class="form-select">
+                <option value="">Todas las categorías</option>
+                {% for c in categorias %}
+                    <option value="{{ c.id }}" {% if categoria_actual == c.id|stringformat:"s" %}selected{% endif %}>
+                        {{ c.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-5">
+            <input type="text" name="busqueda" class="form-control" placeholder="Buscar por nombre o SKU..." value="{{ busqueda }}">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">🔍 Buscar</button>
+        </div>
+    </form>
+
+    <div class="row">
+        {% for p in productos %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                {% with imagen=p.get_imagen %}
+                    {% if imagen %}
+                        <img src="{{ imagen }}" class="card-img-top" alt="{{ p.nombre }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <img src="https://via.placeholder.com/300x200?text=Sin+Imagen" class="card-img-top" alt="Sin imagen">
+                    {% endif %}
+                {% endwith %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ p.nombre }}</h5>
+                    <p class="text-muted small">SKU: {{ p.sku }}</p>
+                    <p><span class="badge bg-secondary">{{ p.categoria.nombre }}</span></p>
+                    <h4 class="text-primary">${{ p.precio|intcomma }}</h4>
+                    <p class="{% if p.stock > 0 %}text-success{% else %}text-danger{% endif %}">
+                        Stock: {{ p.stock }} unidades
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No se encontraron productos con los filtros aplicados.</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

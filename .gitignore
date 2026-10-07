@@ -1,0 +1,25 @@
+# Entorno virtual (OBLIGATORIO NO SUBIR)
+venv/
+env/
+ENV/
+.venv/
+
+# Variables de entorno con credenciales (OBLIGATORIO NO SUBIR)
+.env
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Base de datos local (por si acaso)
+db.sqlite3
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+
+# Archivos de medios subidos (imágenes) y estáticos recopilados
+media/
+staticfiles/

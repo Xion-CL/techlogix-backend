@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}Detalle - {{ producto.nombre }}{% endblock %}
+{% block content %}
+<div class="container my-4">
+    <div class="card shadow-sm col-md-8 mx-auto">
+        <div class="card-body">
+            
+            {# ✅ Mostrar imagen (prioriza archivo, luego URL) #}
+            {% with imagen=producto.get_imagen %}
+                {% if imagen %}
+                    <div class="text-center mb-4">
+                        <img src="{{ imagen }}" class="img-fluid rounded" alt="{{ producto.nombre }}" style="max-height: 350px; object-fit: contain;">
+                    </div>
+                {% else %}
+                    <div class="text-center mb-4">
+                        <img src="https://via.placeholder.com/400x300?text=Sin+Imagen" class="img-fluid rounded" alt="Sin imagen">
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <h3 class="card-title">{{ producto.nombre }}</h3>
+            <hr>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Categoría:</strong> <span class="badge bg-secondary">{{ producto.categoria.nombre }}</span></li>
+                <li class="list-group-item"><strong>SKU:</strong> <code>{{ producto.sku }}</code></li>
+                <li class="list-group-item"><strong>Precio:</strong> <span class="text-primary fs-5">${{ producto.precio|intcomma }}</span></li>
+                <li class="list-group-item"><strong>Stock:</strong> 
+                    <span class="{% if producto.stock > 0 %}text-success{% else %}text-danger{% endif %}">
+                        {{ producto.stock }} unidades
+                    </span>
+                </li>
+                <li class="list-group-item"><strong>Fecha de Ingreso:</strong> {{ producto.fecha_ingreso }}</li>
+            </ul>
+            
+            <div class="mt-4 d-flex gap-2">
+                <a href="{% url 'admin_panel' %}" class="btn btn-secondary">← Volver al Panel</a>
+                {% if es_admin %}
+                    <a href="{% url 'producto_update' producto.pk %}" class="btn btn-warning">✏️ Editar</a>
+                    <a href="{% url 'producto_delete' producto.pk %}" class="btn btn-danger">️ Eliminar</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
